@@ -1,0 +1,49 @@
+.warning-denger{
+            
+    color: red;
+    padding: 10px;
+    /* padding: 20px; */
+    width: 40%;
+    margin: 5px;
+    border: 1px solid red;
+    background-color: rgba(225, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.warning-success{
+    display: block;
+    color: rgb(91, 201, 99);
+    padding: 10px;
+    /* padding: 20px; */
+    text-align: center;
+    position: f;
+    
+    width: 20%;
+  
+    margin: 5px;
+    border: 1px solid rgb(6, 159, 47);
+    background-color: rgba(12, 4, 4, 0.3);
+    border-radius: 15px;
+}
+
+#card{
+    padding-top: 80px;
+}
+
+#regmain{
+    padding-top: 40px;
+
+}
+
+
+.Bg-color-dark{
+    background-color: #201d1d;
+    border: 0;
+}
+.Bg-color-light{
+    background-color: white;
+    border: 0;
+}
+
+
+
