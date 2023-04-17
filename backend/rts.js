@@ -355,13 +355,7 @@ router.post('/login',
       return true;
    }),
    // password must be at least 5 chars long
-   body('password').not().isEmpty().withMessage("email or password is empty").custom(async (value, { req }) => {
-
-      if (await hashFinder(value) === false) {
-         throw new Error('password must be wrong')
-      }
-      return true;
-   }),
+   body('password').not().isEmpty().withMessage("email or password is empty"),
 
 
 
@@ -380,13 +374,36 @@ router.post('/login',
             return res.status(400).json({ errors: errors.array()[i] })
 
          }
-      } else {
 
-         return res.status(200).json({ success: "logged in" });
+      } 
+      
+      try {
+         bcrypt.compare(req.body.password, await hashFinder(req.body.username), function(err, result) {
+            if (result === true){
+               return res.status(200).json({ success: 'logged in' })
+            }else{
+               return res.status(400).json({ error: 'email or password must be wrong' })
+            }
+        });
+            
+      } catch (error) {
+         return error
+      }      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      // else {
 
- 
-         
-      }
+      //    return res.status(200).json({ success: "logged in" });
+
+      // }
 
 
 

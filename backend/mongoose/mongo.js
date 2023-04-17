@@ -16,27 +16,49 @@ const UserSchema = new mongoose.Schema({
 
 
   async function nameFinder(param){
-  const name = await userModel.find({ name: param});
-  if(name){
-    return true
-  } else{
-    return false
-  }
-   
+     const name = await (await userModel.find({ name: param}).exec()).pop()
+    
+     if(name){
+      return true
+     } else if(name === 'undefined'){
+        return false
+     }
 
-  }
+ }
 
   
-  async function emailFinder(param){
-    const email = await userModel.find({ email: param});
+ async function emailFinder(param){
+    const email = await (await userModel.find({ email: param}).exec()).pop()
+   
     if(email){
-        return true
-    } else{
-        return false
+     return true
+    } else if(email === 'undefined'){
+       return false
     }
 
-  }
+}
 
-  
 
-  module.exports = {userModel, nameFinder, emailFinder}
+
+async function hashFinder(param){
+    const name = await (await userModel.find({ name: param}).exec()).pop()
+    if(name){
+        return name.password
+    }
+   
+
+
+}
+
+
+
+//error checker is used to identify issues
+
+// const errorchecker = async ( )=>{
+
+//     console.log(await hashFinder('karlo2'));
+// }
+
+// errorchecker()
+
+  module.exports = {userModel, nameFinder, emailFinder, hashFinder}

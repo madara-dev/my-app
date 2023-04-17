@@ -41,6 +41,8 @@ function Login(props) {
       .then(json =>{
         if(json.errors){
           showAlert(json.errors.msg, "denger")
+        }else if(json.error){
+          showAlert(json.error, "denger")
         }else{
           showAlert("successfully logged in", "success")
         }
