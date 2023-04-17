@@ -4,8 +4,11 @@ const { userModel, nameFinder, emailFinder, hashFinder } = require('./mongoose/m
 const express = require('express')
 const router = express.Router()
 // const bodyParser = require("body-parser")
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const salt = 10;
+
+const JWT_SIGNETURE = 'g7NRDSQQFWIOx1Lt1WdT3tiY7MP8oVbNVJ5nkNYLgotKe8sTl0'
 // const db = require('./config/realtimeseason')
 const { validationResult, body, } = require('express-validator')
 // const loginchecker = require('./checkers/loginchecker')

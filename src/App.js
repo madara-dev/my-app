@@ -14,25 +14,26 @@ import {
 
 
 export default class App extends Component {
-  constructor(){
+  constructor() {
     super()
-    this.state={
+    this.state = {
       theme: "dark",
       text: ''
     }
   }
 
-  
-  LightModeToggle= ()=>{
-  
+
+
+  LightModeToggle = () => {
+
     if (this.state.theme === 'dark') {
-      this.setState({theme: 'light'})
+      this.setState({ theme: 'light' })
       document.body.style.backgroundColor = 'white'
     } else {
-      this.setState({theme: 'dark'})
+      this.setState({ theme: 'dark' })
       document.body.style.backgroundColor = '#201d1d'
-  
-  
+
+
     }
   }
 
@@ -47,7 +48,7 @@ export default class App extends Component {
           <Routes>
             <Route path='/' element={<Register mode={this.state.theme} value={this.text} prevent={this.prevent} />} />
             <Route path='/about' element={<About mode={this.state.theme} />} />
-            <Route path='/login' element={<Login mode={this.state.theme} />} />
+            <Route path='/login' element={<Login mode={this.state.theme}  />} />
           </Routes>
         </Router>
       </>
