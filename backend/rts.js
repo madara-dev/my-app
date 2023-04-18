@@ -320,21 +320,27 @@ router.post('/register',
          }
       } else {
 
+         
+         const hash = await bcrypt.hash(req.body.password, salt,)
+         const user = userModel({
+            name: req.body.username,
+            email: req.body.eaddress,
+            password: hash
+         })
 
-         await bcrypt.hash(req.body.password, salt, function (err, hash) {
-            const user = userModel({
-               name: req.body.username,
-               email: req.body.eaddress,
-               password: hash
-            })
+         user.save()
 
-            user.save()
+            const data = {
+               user: {
+                  user: user.id
+               }
+            }
+            const authtoken = jwt.sign(data, JWT_SIGNETURE)
+            
+         return res.json({ success: 'registered', authtoken}) 
 
-         });
 
 
-
-         return res.status(200).json({ success: "Registerd" });
 
       }
    })
@@ -364,7 +370,7 @@ router.post('/login',
 
    async (req, res) => {
 
-      
+
 
 
 
@@ -378,30 +384,30 @@ router.post('/login',
 
          }
 
-      } 
-      
+      }
+
       try {
-         bcrypt.compare(req.body.password, await hashFinder(req.body.username), function(err, result) {
-            if (result === true){
+         bcrypt.compare(req.body.password, await hashFinder(req.body.username), function (err, result) {
+            if (result === true) {
                return res.status(200).json({ success: 'logged in' })
-            }else{
+            } else {
                return res.status(400).json({ error: 'email or password must be wrong' })
             }
-        });
-            
+         });
+
       } catch (error) {
          return error
-      }      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      }
+
+
+
+
+
+
+
+
+
+
       // else {
 
       //    return res.status(200).json({ success: "logged in" });
@@ -410,7 +416,7 @@ router.post('/login',
 
 
 
-      }
+   }
 
 
 );

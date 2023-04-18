@@ -1,14 +1,26 @@
 
 // import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
+
 
 import React, { useState } from 'react'
 import Alert from "./alert";
 
 function Register(props) {
 
+  
+
   const [creds, setCreds] = useState({ username: "", eaddress: "", password: "", cpassword: "" });
   const [alert , setAlert] = useState(null)
+  const navigate = useNavigate();
+
+    const TestHandler = (someData) => {
+        navigate("/home");
+        //and if you don't want to send any data use like so:
+        //navigate("/dashboard");
+    }
 
   const showAlert = (message, type)=>{
     setAlert({
@@ -22,7 +34,9 @@ function Register(props) {
 
 
   const RegisterSubmited = async function (e) {
+    
     const { username, eaddress, password, cpassword } = creds
+    
     e.preventDefault()
 
 
@@ -44,7 +58,15 @@ function Register(props) {
           showAlert(json.errors.msg, "denger")
         }else{
           showAlert("successfully registered", "success")
+          localStorage.setItem('auth', json.authtoken)
+          
+          setTimeout(() => {
+            TestHandler()
+            
+          }, 2000);
         }
+          
+     
         
       }) 
       
