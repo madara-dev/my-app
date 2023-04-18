@@ -271,7 +271,17 @@ const { validationResult, body, } = require('express-validator')
 // router.get('*', (req, res)=>{
 //    res.redirect('/')
 // })
+router.post('/sessionchecker', (req, res)=>{
+   if(req.session.user){
+      const data = jwt.verify(req.session.user.jwt_token, JWT_SIGNETURE);
+      if(data.name){
+         return res.json({signeture: 'verified'})
+      }
 
+
+   } 
+
+})
 
 router.post('/register',
 
@@ -319,8 +329,9 @@ router.post('/register',
 
          }
       } else {
+         let Authid = []
 
-         
+
          const hash = await bcrypt.hash(req.body.password, salt,)
          const user = userModel({
             name: req.body.username,
@@ -330,14 +341,18 @@ router.post('/register',
 
          user.save()
 
-            const data = {
-               user: {
-                  user: user.id
-               }
+         const data = {
+            user: {
+               user: user.id
             }
-            const authtoken = jwt.sign(data, JWT_SIGNETURE)
-            
-         return res.json({ success: 'registered', authtoken}) 
+         }
+         const authtoken = jwt.sign(data, JWT_SIGNETURE)
+         let jwt_session_id = { jwt_token: authtoken }
+         Authid.push(jwt_session_id);
+         req.session.user = jwt_session_id;
+         return res.json({ success: 'registered',})
+         
+         
 
 
 

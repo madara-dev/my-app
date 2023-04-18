@@ -75,7 +75,7 @@ function Login(props) {
 
           <div className={`text-dark row justify-content-center`} >
             <div className="col-md-8">
-              <div className={`card Bg-color-${props.mode}`}>
+              <div className={`card Bg-color-dark`}>
 
 
                 <form onSubmit={RegisterSubmited}>
@@ -85,7 +85,7 @@ function Login(props) {
 
                     <div className="form-group row">
 
-                      <label htmlFor="username" className={`col-md-4 col-form-label text-md-right text-${props.mode === 'light' ? 'dark' : 'light'}`}>username
+                      <label htmlFor="username" className={`col-md-4 col-form-label text-md-right text-light`}>username
                       </label>
                       <div className="col-md-6">
 
@@ -97,7 +97,7 @@ function Login(props) {
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label htmlFor="password" className={`col-md-4 col-form-label text-md-right text-${props.mode === 'light' ? 'dark' : 'light'}`}>Password</label>
+                      <label htmlFor="password" className={`col-md-4 col-form-label text-md-right text-light`}>Password</label>
                       <div className="col-md-6">
 
 
@@ -112,7 +112,7 @@ function Login(props) {
                       <div className="col-md-6 offset-md-4">
                         <div className="checkbox">
                           <label>
-                            <Link to="/" className={`btn btn-link text-${props.mode === 'light' ? 'dark' : 'light'}`}>
+                            <Link to="/" className={`btn btn-link text-light`}>
                               already have an account
                             </Link>
 
