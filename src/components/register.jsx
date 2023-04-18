@@ -39,6 +39,7 @@ function Register(props) {
   const RegisterSubmited = async function (e) {
 
     const { username, eaddress, password, cpassword } = creds
+    
 
     e.preventDefault()
 

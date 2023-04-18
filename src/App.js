@@ -14,24 +14,28 @@ import {
 import React from 'react'
 
 export default function App() {
-  return (
+
+
+ 
+
+
+
+  return(
     <>
-      <Router>
+    <Router>
 
-        <div className="App">
-          <Navbar title='Home' about='about' />
-        </div>
+      <div className="App">
+        <Navbar title='Home' about='about' />
+      </div>
 
-        <Routes>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='/about' element={<About />} />
+        <Route path='/login' element={<Login />} />
 
-          <Route path='/home' element={<Home/>}  />
-          <Route path='/' element={<Register/>} />
-          <Route path='/about' element={<About />} />
-          <Route path='/login' element={<Login  />} />
+      </Routes>
 
-        </Routes>
-
-      </Router>
+    </Router>
     </>
 
   )
@@ -46,7 +50,7 @@ export default function App() {
 
 
 
-  
+
 
 
 

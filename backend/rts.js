@@ -4,12 +4,12 @@ const { userModel, nameFinder, emailFinder, hashFinder } = require('./mongoose/m
 const express = require('express')
 const router = express.Router()
 // const bodyParser = require("body-parser")
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const salt = 10;
 
-const JWT_SIGNETURE = 'g7NRDSQQFWIOx1Lt1WdT3tiY7MP8oVbNVJ5nkNYLgotKe8sTl0'
-// const db = require('./config/realtimeseason')
+// const JWT_SIGNETURE = 'g7NRDSQQFWIOx1Lt1WdT3tiY7MP8oVbNVJ5nkNYLgotKe8sTl0'
+const db = require('./config/realtimeseason')
 const { validationResult, body, } = require('express-validator')
 // const loginchecker = require('./checkers/loginchecker')
 // const regchecker = require('./checkers/regchecker')
@@ -22,43 +22,36 @@ const { validationResult, body, } = require('express-validator')
 
 
 
-// router.get('/', async function (req, res) {
-//    // console.log(req.sessionStore.ge})
+router.get('/', async function (req, res) {
+   // console.log(req.sessionStore.ge})
 
-//    if (!req.session.user) {
-//       res.render('register', {
-//          val: '',
-//          alert: ''
+   if (!req.session.user) {
+      res.json({response: false})
 
-//       })
+   } else {
 
-//    } else {
+      try {
+       const  email = await req.session.user.email
 
-//       try {
-//        const  email = await req.session.user.email
-
-//         const sessioncookie = await db.firestore().collection('web game').doc(email).get('email').then(async e => {
+         await db.firestore().collection('web game').doc(email).get('email').then(async e => {
 
 
-//             req.session.user = { username: e.data().username, password: e.data().password, role: e.data().role, email: e.data().email }
+            req.session.user = { name: e.data().name, password: e.data().password, role: e.data().role, email: e.data().email }
 
 
-//          })
+         })
 
 
-//       } catch (error) {
+      } catch (error) {
 
-//          console.log(error)
-//       }
+         console.log(error)
+      }
 
-//       res.render('home', {
-//          user: req.session.user.username,
-//          role: req.session.user
-//       })
+      res.json({response: true})
 
-//    }
+   }
 
-// })
+})
 
 
 // router.get('/login', (req, res) => {
@@ -271,17 +264,7 @@ const { validationResult, body, } = require('express-validator')
 // router.get('*', (req, res)=>{
 //    res.redirect('/')
 // })
-router.post('/sessionchecker', (req, res)=>{
-   if(req.session.user){
-      const data = jwt.verify(req.session.user.jwt_token, JWT_SIGNETURE);
-      if(data.name){
-         return res.json({signeture: 'verified'})
-      }
 
-
-   } 
-
-})
 
 router.post('/register',
 
@@ -341,13 +324,13 @@ router.post('/register',
 
          user.save()
 
-         const data = {
-            user: {
-               user: user.id
-            }
-         }
-         const authtoken = jwt.sign(data, JWT_SIGNETURE)
-         let jwt_session_id = { jwt_token: authtoken }
+         // const data = {
+         //    user: {
+         //       user: user.id
+         //    }
+         // }
+         // const authtoken = jwt.sign(data, JWT_SIGNETURE)
+         let jwt_session_id = { user }
          Authid.push(jwt_session_id);
          req.session.user = jwt_session_id;
          return res.json({ success: 'registered',})
