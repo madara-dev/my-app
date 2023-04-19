@@ -1,8 +1,8 @@
 
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 
+import { useCookies } from "react-cookie";
 
 
 import React, { useState } from 'react'
@@ -11,19 +11,16 @@ import Alert from "./alert";
 function Register(props) {
 
 
-
+  const [setCookie] = useCookies(["user"]);
   const [creds, setCreds] = useState({ username: "", eaddress: "", password: "", cpassword: "" });
   const [alert, setAlert] = useState(null)
-  const navigate = useNavigate();
 
 
 
 
-  const TestHandler = (someData) => {
-    navigate("/home");
-    //and if you don't want to send any data use like so:
-    //navigate("/dashboard");
-  }
+
+  
+  
 
   const showAlert = (message, type) => {
     setAlert({
@@ -62,9 +59,12 @@ function Register(props) {
           showAlert(json.errors.msg, "denger")
         } else {
           showAlert("successfully registered", "success")
+          setCookie("jwt", json.authtoken, { path: "/", httpOnly:true,});
+          
 
           setTimeout(() => {
-            TestHandler()
+            props.setSession(true)
+            
 
           }, 2000);
         }

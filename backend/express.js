@@ -1,15 +1,15 @@
 const express = require('express')
 const app = express()
 const port = 5000;
-const ref = require('./config/realtimeseason')
-const session = require("express-session")
+// const ref = require('./config/realtimeseason')
+// const session = require("express-session")
 // const store = new session.MemoryStore()
 const flash = require('express-flash')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-const FirebaseStore = require('connect-session-firebase')(session);
+// const FirebaseStore = require('connect-session-firebase')(session);
 const cors = require('cors');
 
 // const exphbs = require('express-handlebars');
@@ -38,19 +38,19 @@ app.use(cors({
 app.use(urlencodedParser)
 app.use(flash())
 app.use(cookieParser());
-app.use(session({
-  store: new FirebaseStore({
-    database: ref.database()
-  }),
+// app.use(session({
+//   store: new FirebaseStore({
+//     database: ref.database()
+//   }),
 
-secret: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
-cookie: {maxAge: 1296000000},
-saveUninitialized: false,
-resave: false,
+// secret: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+// cookie: {maxAge: 1296000000},
+// saveUninitialized: false,
+// resave: false,
 
 
 
-}))
+// }))
 app.use(routes)
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`)
