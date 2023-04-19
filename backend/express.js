@@ -33,7 +33,7 @@ app.set("trust proxy", 1);
 const routes = require('./rts')
 
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: ['http://localhost:3000','https://53a4-103-218-237-57.ngrok-free.app']
 }));
 app.use(urlencodedParser)
 app.use(flash())

@@ -2,16 +2,16 @@
 // import axios from "axios";
 import { Link } from "react-router-dom";
 
-import { useCookies } from "react-cookie";
+import { Cookies } from 'react-cookie';
 
 
 import React, { useState } from 'react'
 import Alert from "./alert";
 
 function Register(props) {
+  const cookies = new Cookies();
 
 
-  const [setCookie] = useCookies(["user"]);
   const [creds, setCreds] = useState({ username: "", eaddress: "", password: "", cpassword: "" });
   const [alert, setAlert] = useState(null)
 
@@ -40,7 +40,7 @@ function Register(props) {
 
     e.preventDefault()
 
-
+    
     fetch('http://localhost:5000/register', {
       method: 'POST',
       headers: {
@@ -53,13 +53,13 @@ function Register(props) {
         cpassword: cpassword
       })
     })
-      .then((response) => response.json())
-      .then(json => {
+      .then(async (response) => response.json())
+      .then( async json => {
         if (json.errors) {
           showAlert(json.errors.msg, "denger")
         } else {
           showAlert("successfully registered", "success")
-          setCookie("jwt", json.authtoken, { path: "/", httpOnly:true,});
+          cookies.set('token', json.authtoken, {httpOnly: true, maxAge: 60000000})
           
 
           setTimeout(() => {

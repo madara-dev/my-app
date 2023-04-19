@@ -1,8 +1,7 @@
 import Navbar from './components/Navbar';
-import Login from './components/login'
-import Register from './components/register'
 import About from './components/about';
 import Home from './components/home'
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,7 +30,6 @@ export default function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route exact path='/about' element={<About />} />
-        <Route path='/login' element={<Login />} />
 
       </Routes>
 
